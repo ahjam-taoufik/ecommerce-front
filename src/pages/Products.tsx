@@ -5,6 +5,7 @@ import getProducts from "@store/products/thunk/getProducts";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { productsClenUp } from "@store/products/productsSlice";
+import { Loading } from "@components/feedback";
 const Products = () => {
   const { prefix } = useParams();
 
@@ -35,7 +36,9 @@ const Products = () => {
 
   return (
     <Container>
-      <Row>{loading === "pending" ? "loading..." : ListProducts}</Row>
+      <Loading loading={loading} error={error}>
+        <Row>{ListProducts}</Row>
+      </Loading>
     </Container>
   );
 };

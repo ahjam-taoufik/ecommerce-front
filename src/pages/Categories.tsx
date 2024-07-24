@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Category } from "@components/eCommerce";
 import getGategories from "@store/categories/thunk/getGategories";
+import { Loading } from "@components/feedback";
 
 const Categories = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +33,9 @@ const Categories = () => {
 
   return (
     <Container>
-      <Row>{loading === "pending" ? "loading..." : ListCategories}</Row>
+      <Loading loading={loading} error={error}>
+        <Row>{ListCategories}</Row>
+      </Loading>
     </Container>
   );
 };

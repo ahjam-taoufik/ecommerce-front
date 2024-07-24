@@ -4,6 +4,7 @@ export type TProducts = {
   price: string;
   cat_prefix: string;
   img: string;
+  quantity?: number;
 };
 
 export type TLoading = "idle" | "pending" | "succeded" | "failed";
