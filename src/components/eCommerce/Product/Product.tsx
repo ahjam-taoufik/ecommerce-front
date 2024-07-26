@@ -3,30 +3,34 @@ import styles from "./styles.module.css";
 import { TProducts } from "src/types/ProductsTypes";
 import { useAppDispatch } from "@store/hook";
 import { addToCart } from "@store/cart/cartSlice";
-import { useEffect, useState } from "react";
-const { product, productImg } = styles;
+import { memo, useEffect, useState } from "react";
+const { product, productImg, maximumNotice } = styles;
 
-const Product = ({ img, title, price, id }: TProducts) => {
+const Product = ({ img, title, price, id, quantity, max }: TProducts) => {
   const dispatch = useAppDispatch();
-  const [isBtnClicked, setIsBtnClicked] = useState(0);
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
 
+  // nullish coalescing(??) operator will only give the result as the right operand
+  // only if the left operand is either null or undefined.
+  const currentRemingQuantity = max - (quantity ?? 0);
+
+  const reachMax = currentRemingQuantity <= 0 ? true : false;
+
   useEffect(() => {
-    if (isBtnClicked > 0) {
-      setIsBtnDisabled(true);
-
-      const debounse = setTimeout(() => {
-        setIsBtnDisabled(false);
-        setIsBtnClicked(0);
-      }, 600);
-
-      return () => setTimeout(debounse);
+    if (!isBtnDisabled) {
+      return;
     }
-  }, [isBtnClicked]);
+
+    const debounse = setTimeout(() => {
+      setIsBtnDisabled(false);
+    }, 600);
+
+    return () => setTimeout(debounse);
+  }, [isBtnDisabled]);
 
   const addActionHandler = () => {
     dispatch(addToCart(id));
-    setIsBtnClicked((prev) => prev + 1);
+    setIsBtnDisabled(true);
   };
 
   return (
@@ -35,14 +39,19 @@ const Product = ({ img, title, price, id }: TProducts) => {
         <img src={img} alt={title} />
       </div>
       <h2>{title}</h2>
-      <h3>{price}</h3>
+      <h3>{price.toFixed(2)}</h3>
+      <p className={maximumNotice}>
+        {reachMax
+          ? "You rach to the limit"
+          : `You can add only ${currentRemingQuantity} items`}
+      </p>
       <Button
         variant="info"
         style={{ color: "white" }}
         onClick={addActionHandler}
-        disabled={isBtnDisabled}
+        disabled={isBtnDisabled || reachMax}
       >
-        {isBtnClicked > 0 ? (
+        {isBtnDisabled ? (
           <>
             <Spinner animation="border" size="sm" />
             Loading...
@@ -55,4 +64,4 @@ const Product = ({ img, title, price, id }: TProducts) => {
   );
 };
 
-export default Product;
+export default memo(Product);

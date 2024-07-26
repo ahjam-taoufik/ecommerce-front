@@ -1,8 +1,20 @@
 .basketContainer {
-  position: relative;
+  display: flex;
+  align-items: center;
   cursor: pointer;
   align-self: flex-end;
 }
+
+.basketContainer h3 {
+  font-size: 17px;
+  margin-left: 6px;
+  margin-bottom: 0;
+}
+
+.basketCart {
+  position: relative;
+}
+
 .basketQuantity {
   background-color: #0dcaf0;
   height: 22px;
