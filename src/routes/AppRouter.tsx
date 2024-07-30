@@ -9,6 +9,7 @@ import {
 import { MainLayout } from "@layouts/index";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Error from "@pages/Error";
+import Cart from "@pages/Cart";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
 
           return true;
         },
+      },
+      {
+        path: "cart",
+        element: <Cart />,
       },
       {
         path: "login",

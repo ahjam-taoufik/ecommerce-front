@@ -15,8 +15,6 @@ const Products = () => {
   const cartItems = useAppSelector((state) => state.cart.items);
   const [productsFullInfos, setProductsFullInfos] = useState([]);
 
-  console.log("fires");
-
   useEffect(() => {
     const productsFullInfos2 = records.map((el) => ({
       ...el,
