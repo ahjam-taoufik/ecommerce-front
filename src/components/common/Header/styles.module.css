@@ -21,3 +21,8 @@
   display: block;
   margin-right: 5px;
 }
+
+.headerRightBar {
+  display: flex;
+  flex-direction: row;
+}

@@ -3,11 +3,14 @@
   align-items: center;
   cursor: pointer;
   align-self: flex-end;
+  border-right: 1px solid black;
+  padding-right: 10px;
+  margin-right: 10px;
 }
 
 .container h3 {
   font-size: 17px;
-  /* margin-left: 6px; */
+  /* margin-left: 0px; */
   margin-bottom: 0;
 }
 

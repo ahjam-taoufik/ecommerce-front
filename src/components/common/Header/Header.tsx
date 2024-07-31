@@ -2,10 +2,10 @@ import { Badge, Container } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import styles from "./styles.module.css";
-import { HeaderBasket } from "../../eCommerce";
+import { HeaderBasket, HeaderWishlist } from "../../eCommerce";
 import { NavLink } from "react-router-dom";
 
-const { headerLogo, headerContainer } = styles;
+const { headerLogo, headerContainer, headerRightBar } = styles;
 function Header() {
   return (
     <header>
@@ -14,7 +14,10 @@ function Header() {
           <span>Atlas</span>
           <Badge bg="info">art</Badge>
         </h1>
-        <HeaderBasket />
+        <div className={headerRightBar}>
+          <HeaderWishlist />
+          <HeaderBasket />
+        </div>
       </div>
       <Navbar
         bg="dark"

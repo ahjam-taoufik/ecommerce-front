@@ -2,7 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Product } from "@components/eCommerce";
 import { useAppDispatch, useAppSelector } from "@store/hook";
 import getProducts from "@store/products/thunk/getProducts";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { productsClenUp } from "@store/products/productsSlice";
 import { Loading } from "@components/feedback";
@@ -13,17 +13,24 @@ const Products = () => {
   const { loading, records, error } = useAppSelector((state) => state.products);
 
   const cartItems = useAppSelector((state) => state.cart.items);
-  const [productsFullInfos, setProductsFullInfos] = useState([]);
+  // const [productsFullInfos, setProductsFullInfos] = useState([]);
 
-  useEffect(() => {
-    const productsFullInfos2 = records.map((el) => ({
-      ...el,
-      quantity: cartItems[el.id] || 0,
-    }));
-    setProductsFullInfos(productsFullInfos2);
-  }, [cartItems, records]);
+  const wishlistItemsId = useAppSelector((state) => state.wishlist.itemsId);
 
-  // console.log(productsFullInfos);
+  // useEffect(() => {
+  //   const productsFullInfos2 = records.map((el) => ({
+  //     ...el,
+  //     quantity: cartItems[el.id] || 0,
+  //     isLiked: wishlistItemsId.includes(el.id),
+  //   }));
+  //   setProductsFullInfos(productsFullInfos2);
+  // }, [cartItems, records]);
+
+  const productsFullInfos2 = records.map((el) => ({
+    ...el,
+    quantity: cartItems[el.id] || 0,
+    isLiked: wishlistItemsId.includes(el.id),
+  }));
 
   useEffect(() => {
     dispatch(getProducts(prefix as string));
@@ -33,8 +40,8 @@ const Products = () => {
   }, [dispatch]);
 
   const ListProducts =
-    productsFullInfos.length > 0
-      ? productsFullInfos.map((productsFullInfo) => (
+    productsFullInfos2.length > 0
+      ? productsFullInfos2.map((productsFullInfo) => (
           <Col
             key={productsFullInfo.id}
             xs={6}

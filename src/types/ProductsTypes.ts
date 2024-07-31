@@ -6,6 +6,7 @@ export type TProducts = {
   img: string;
   quantity?: number;
   max: number;
+  isLike?: boolean;
 };
 
 export type TLoading = "idle" | "pending" | "succeded" | "failed";
