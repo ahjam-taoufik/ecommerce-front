@@ -8,6 +8,7 @@ import { useCallback, useEffect } from "react";
 import {
   actGetProductsItems,
   cartItemChangeQuantity,
+  cleanCartProductsFullinfos,
   removeItem,
 } from "@store/cart/cartSlice";
 import { Loading } from "@components/feedback";
@@ -19,6 +20,10 @@ function Cart() {
 
   useEffect(() => {
     dispatch(actGetProductsItems());
+
+    return () => {
+      dispatch(cleanCartProductsFullinfos());
+    };
   }, [dispatch]);
 
   const products = productsFullinfos.map((product) => ({

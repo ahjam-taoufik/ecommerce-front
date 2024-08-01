@@ -4,6 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Category } from "@components/eCommerce";
 import getGategories from "@store/categories/thunk/getGategories";
 import { Loading } from "@components/feedback";
+import { cleanUpCategories } from "@store/categories/categoriesSlice";
 
 const Categories = () => {
   const dispatch = useAppDispatch();
@@ -12,10 +13,12 @@ const Categories = () => {
   );
 
   useEffect(() => {
-    if (records.length === 0) {
-      dispatch(getGategories());
-    }
-  }, [dispatch, records]);
+    dispatch(getGategories());
+
+    return () => {
+      dispatch(cleanUpCategories());
+    };
+  }, [dispatch]);
 
   const ListCategories =
     records.length > 0

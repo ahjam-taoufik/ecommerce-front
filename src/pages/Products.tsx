@@ -8,23 +8,10 @@ import { productsClenUp } from "@store/products/productsSlice";
 import { Loading } from "@components/feedback";
 const Products = () => {
   const { prefix } = useParams();
-
   const dispatch = useAppDispatch();
   const { loading, records, error } = useAppSelector((state) => state.products);
-
   const cartItems = useAppSelector((state) => state.cart.items);
-  // const [productsFullInfos, setProductsFullInfos] = useState([]);
-
   const wishlistItemsId = useAppSelector((state) => state.wishlist.itemsId);
-
-  // useEffect(() => {
-  //   const productsFullInfos2 = records.map((el) => ({
-  //     ...el,
-  //     quantity: cartItems[el.id] || 0,
-  //     isLiked: wishlistItemsId.includes(el.id),
-  //   }));
-  //   setProductsFullInfos(productsFullInfos2);
-  // }, [cartItems, records]);
 
   const productsFullInfos2 = records.map((el) => ({
     ...el,
